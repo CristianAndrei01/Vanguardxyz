@@ -22,53 +22,66 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; line-height: 1.6; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; line-height: 1.6; overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
 
+  /* GRAIN OVERLAY */
+  body::after {
+    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
-  .logo-mark { width: 28px; height: 28px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--bg); font-weight: 700; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.95rem; letter-spacing: -0.02em; }
+  .logo-mark { width: 28px; height: 28px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--bg); font-weight: 700; }
   .nav-right { display: flex; align-items: center; gap: 24px; }
-  .nav-right a { font-size: 0.82rem; color: var(--text-3); transition: color 0.2s; font-family: var(--mono); }
+  .nav-right a { font-size: 0.95rem; color: var(--text-3); transition: color 0.2s; font-family: var(--mono); }
   .nav-right a:hover { color: var(--text-2); }
 
-  .hero { max-width: 680px; margin: 0 auto; padding: 160px 24px 80px; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border: 1px solid rgba(0,212,170,0.2); border-radius: 100px; font-family: var(--mono); font-size: 0.7rem; color: var(--accent); margin-bottom: 32px; background: var(--accent-dim); }
+  .hero { max-width: 1100px; margin: 0 auto; padding: 180px 40px 100px; text-align: center; position: relative; }
+  .hero::before {
+    content: ''; position: absolute; top: 80px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(0,212,170,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border: 1px solid rgba(0,212,170,0.2); border-radius: 100px; font-family: var(--mono); font-size: 0.8rem; color: var(--accent); margin-bottom: 32px; background: var(--accent-dim); }
   .hero-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-  .hero h1 { font-size: clamp(2.4rem, 5.5vw, 3.8rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 700; line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 32px; position: relative; }
   .hero h1 .mark { color: var(--accent); }
-  .hero-intro { font-size: 1.05rem; color: var(--text-2); line-height: 1.8; max-width: 560px; }
+  .hero-intro { font-size: 0.95rem; color: var(--text-2); line-height: 1.8; max-width: 560px; margin: 0 auto; text-align: left; }
   .hero-intro strong { color: var(--text); font-weight: 500; }
 
   .section { max-width: 680px; margin: 0 auto; padding: 80px 24px; }
   .section-wide { max-width: 880px; }
   .sep { max-width: 880px; margin: 0 auto; height: 1px; background: var(--border); }
-  .stag { font-family: var(--mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+  .stag { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
 
   .role-list { display: flex; flex-direction: column; gap: 2px; margin-top: 32px; }
   .role-item { font-size: 0.95rem; color: var(--text-2); line-height: 1.7; padding-left: 16px; position: relative; }
   .role-item::before { content: ''; position: absolute; left: 0; top: 11px; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
 
   .not-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 32px; margin-top: 24px; }
-  .not-item { font-family: var(--mono); font-size: 0.78rem; color: var(--text-3); padding: 8px 0; }
+  .not-item { font-family: var(--mono); font-size: 0.8rem; color: var(--text-3); padding: 8px 0; }
   .not-item::before { content: '✕ '; color: var(--red); opacity: 0.5; }
 
   .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
   .value-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
-  .value-num { font-family: var(--mono); font-size: 0.6rem; color: var(--text-3); letter-spacing: 0.1em; margin-bottom: 8px; }
+  .value-num { font-family: var(--mono); font-size: 0.8rem; color: var(--text-3); letter-spacing: 0.1em; margin-bottom: 8px; }
   .value-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
-  .value-card p { font-size: 0.82rem; color: var(--text-2); line-height: 1.5; }
+  .value-card p { font-size: 0.95rem; color: var(--text-2); line-height: 1.5; }
 
   .behavior { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-top: 32px; }
-  .behavior p { font-size: 0.88rem; color: var(--text-2); line-height: 1.7; margin-bottom: 12px; }
+  .behavior p { font-size: 0.95rem; color: var(--text-2); line-height: 1.7; margin-bottom: 12px; }
   .behavior p:last-child { margin-bottom: 0; }
   .behavior em { font-style: normal; color: var(--text); font-weight: 500; }
 
   /* TOOLS - CATEGORIZED */
   .tools-category { margin-top: 40px; }
   .tools-category:first-child { margin-top: 0; }
-  .tools-cat-label { font-family: var(--mono); font-size: 0.72rem; color: var(--text-2); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .tools-cat-label { font-family: var(--mono); font-size: 0.8rem; color: var(--text-2); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
   .tools-cat-label::before { content: '⟩'; color: var(--accent); font-weight: 700; }
   .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .tool { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 14px; text-align: center; transition: border-color 0.2s; }
@@ -76,17 +89,17 @@
   .tool-logo { width: 36px; height: 36px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
   .tool-logo img, .tool-logo svg { width: 28px; height: 28px; }
   .tool-logo .emoji { font-size: 1.6rem; line-height: 1; }
-  .tool-name { font-size: 0.82rem; font-weight: 600; margin-bottom: 3px; color: var(--text); }
-  .tool-desc { font-family: var(--mono); font-size: 0.68rem; color: var(--text-2); line-height: 1.4; }
+  .tool-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 3px; color: var(--text); }
+  .tool-desc { font-family: var(--mono); font-size: 0.8rem; color: var(--text-2); line-height: 1.4; }
 
   .builds { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
   .build-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: border-color 0.2s; display: block; }
   .build-card:hover { border-color: var(--accent); }
   .build-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-  .build-name { font-size: 1rem; font-weight: 600; }
-  .build-status { font-family: var(--mono); font-size: 0.62rem; color: var(--accent); background: var(--accent-dim); padding: 3px 10px; border-radius: 4px; }
-  .build-desc { font-size: 0.85rem; color: var(--text-2); line-height: 1.5; }
-  .build-arrow { font-size: 0.75rem; color: var(--text-3); margin-top: 10px; font-family: var(--mono); }
+  .build-name { font-size: 1.1rem; font-weight: 600; }
+  .build-status { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); background: var(--accent-dim); padding: 3px 10px; border-radius: 4px; }
+  .build-desc { font-size: 0.95rem; color: var(--text-2); line-height: 1.5; }
+  .build-arrow { font-size: 0.8rem; color: var(--text-3); margin-top: 10px; font-family: var(--mono); }
   .build-card.planned { opacity: 0.35; cursor: default; border-style: dashed; }
   .build-card.planned:hover { border-color: var(--border); }
   .build-card.planned .build-status { background: rgba(255,255,255,0.03); color: var(--text-3); }
@@ -94,13 +107,13 @@
   .quote-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-top: 32px; position: relative; overflow: hidden; }
   .quote-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
   .quote-text { font-family: var(--serif); font-size: 1.1rem; font-style: italic; line-height: 1.7; color: var(--text); margin-bottom: 12px; }
-  .quote-sig { font-family: var(--mono); font-size: 0.7rem; color: var(--text-3); }
+  .quote-sig { font-family: var(--mono); font-size: 0.8rem; color: var(--text-3); }
 
   footer { border-top: 1px solid var(--border); padding: 32px; max-width: 880px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-  footer .fl { font-family: var(--mono); font-size: 0.68rem; color: var(--text-3); }
+  footer .fl { font-family: var(--mono); font-size: 0.8rem; color: var(--text-3); }
   footer .fl a { color: var(--accent); }
   footer .fr { display: flex; gap: 20px; }
-  footer .fr a { font-family: var(--mono); font-size: 0.68rem; color: var(--text-3); transition: color 0.2s; }
+  footer .fr a { font-family: var(--mono); font-size: 0.8rem; color: var(--text-3); transition: color 0.2s; }
   footer .fr a:hover { color: var(--text-2); }
 
   @media(max-width:768px) {
@@ -143,7 +156,7 @@
 <!-- ROLE -->
 <div class="section">
   <div class="stag">Role</div>
-  <p style="font-size: 1rem; color: var(--text-2); line-height: 1.7;">I exist to raise the quality of Cristian's decisions.</p>
+  <p style="font-size: 1.1rem; color: var(--text-2); line-height: 1.7;">I exist to raise the quality of Cristian's decisions.</p>
   <div class="role-list">
     <div class="role-item">I reduce noise.</div>
     <div class="role-item">I signal risk.</div>
@@ -203,7 +216,7 @@
     <div class="not-item">Does not presume he's right</div>
   </div>
 
-  <p style="font-family: var(--mono); font-size: 0.78rem; color: var(--accent); margin-top: 24px;">Stable even when he's not.</p>
+  <p style="font-family: var(--mono); font-size: 0.8rem; color: var(--accent); margin-top: 24px;">Stable even when he's not.</p>
 </div>
 
 <div class="sep"></div>
@@ -219,7 +232,7 @@
       <div class="tool" style="display: flex; align-items: center; gap: 16px; text-align: left; padding: 20px 24px;">
         <div class="tool-logo"><svg width="32" height="32" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#ff6b3d"/><text x="50" y="62" text-anchor="middle" font-size="50" fill="white">🦞</text></svg></div>
         <div>
-          <div class="tool-name" style="font-size: 0.95rem;">OpenClaw</div>
+          <div class="tool-name" style="font-size: 1.1rem;">OpenClaw</div>
           <div class="tool-desc">Open source AI agent framework. Orchestration, skills, multi-model routing.</div>
         </div>
       </div>
@@ -231,22 +244,22 @@
     <div class="tools-cat-label">AI Models</div>
     <div class="tools-grid">
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#D4A27F"/><text x="14" y="18" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">A</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#D4A27F"/><path d="M18.2 8H16l-2 5.5L12 8H9.8L14 19.5 18.2 8z" fill="#1a1a1a"/></svg></div>
         <div class="tool-name">Anthropic</div>
         <div class="tool-desc">Claude Opus 4.5, Sonnet</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#10a37f"/><text x="14" y="19" text-anchor="middle" font-size="16" font-weight="700" fill="white">G</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#10a37f"/><circle cx="14" cy="14" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="14" cy="14" r="1.5" fill="white"/></svg></div>
         <div class="tool-name">OpenAI</div>
         <div class="tool-desc">GPT-4, GPT-5, o1</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#0066FF"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">DS</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#0066FF"/><path d="M8 14l3-6h6l3 6-3 6h-6l-3-6z" fill="none" stroke="white" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="white"/></svg></div>
         <div class="tool-name">DeepSeek</div>
         <div class="tool-desc">DeepSeek V3, R1</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#4285F4"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">G</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#4285F4"/><path d="M14 8l5.5 3.5v5L14 20l-5.5-3.5v-5L14 8z" fill="none" stroke="white" stroke-width="1.5"/></svg></div>
         <div class="tool-name">Google</div>
         <div class="tool-desc">Gemini 2.5 Pro</div>
       </div>
@@ -258,22 +271,22 @@
     <div class="tools-cat-label">Chat Providers</div>
     <div class="tools-grid">
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#25D366"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">W</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#25D366"/><path d="M14 7a7 7 0 107.08 10.5L22 21l-3.7-.95A7 7 0 0014 7zm-2.4 4c.15-.4.3-.4.45-.4h.3c.15 0 .3 0 .4.3s.5 1.3.55 1.4.05.15 0 .2-.1.15-.15.2-.2.25-.3.3c-.1.1-.15.15.05.3.2.4.6.75.9 1 .4.3.7.4.85.25.15-.15.6-.7.75-.9s.3-.2.45-.15l1.4.7c.15.05.25.1.3.2 0 .15 0 .65-.3 1.3s-1.05.9-1.05.9-2.3.4-4.05-1.65c-1.15-1.35-1.2-2.35-1.2-2.5s.3-.9.45-1.15z" fill="white"/></svg></div>
         <div class="tool-name">WhatsApp</div>
         <div class="tool-desc">Messaging gateway</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#26A5E4"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">T</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#26A5E4"/><path d="M19.7 8.2c-.1 0-.2 0-.3 0L9.4 14l-2.6-.8c-.2-.1-.3-.1-.3-.2 0-.1.1-.2.3-.3L19 8c.2-.1.4 0 .5.1s.1.2.1.4l-1.8 8.2c0 .2-.2.3-.4.3-.1 0-.1 0-.2 0l-2.7-2-1.3 1.2c-.2.2-.3.3-.5.3l.2-2.7 5-4.5c.1-.1 0-.2-.2 0l-6.1 3.8-2.6-.8c-.5-.2-.5-.5.1-.8L19 8c.5-.2 1 .1.8.9l-1.8 8.2" fill="white"/></svg></div>
         <div class="tool-name">Telegram</div>
         <div class="tool-desc">Bot API via grammY</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#5865F2"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">D</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#5865F2"/><path d="M19 9.5a11 11 0 00-2.7-.8c-.1.2-.2.4-.3.6a10 10 0 00-3 0c-.1-.2-.2-.4-.3-.6-.9.2-1.8.5-2.7.8C8.2 12 7.7 14.3 7.9 16.6a11 11 0 003.3 1.7c.3-.4.5-.7.7-1.1-.4-.1-.7-.3-1-.5l.2-.2c2.2 1 4.6 1 6.7 0l.2.2c-.3.2-.6.3-1 .5.2.4.4.8.7 1.1a11 11 0 003.3-1.7c.2-3-.5-5.3-2-7.5zm-7 6c-.7 0-1.2-.6-1.2-1.4s.5-1.4 1.2-1.4 1.2.6 1.2 1.4-.5 1.4-1.2 1.4zm4.4 0c-.7 0-1.2-.6-1.2-1.4s.5-1.4 1.2-1.4 1.2.6 1.2 1.4-.5 1.4-1.2 1.4z" fill="white"/></svg></div>
         <div class="tool-name">Discord</div>
         <div class="tool-desc">Servers, channels & DMs</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#5B5FC7"/><text x="14" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="white">T</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#5B5FC7"/><path d="M8 10h8v1H8zm0 2.5h6v1H8zm0 2.5h7v1H8zm10-5v8l-3-2v2l-3-2v-6h6z" fill="white" opacity="0.9"/></svg></div>
         <div class="tool-name">MS Teams</div>
         <div class="tool-desc">Enterprise messaging</div>
       </div>
@@ -285,22 +298,22 @@
     <div class="tools-cat-label">Productivity</div>
     <div class="tools-grid">
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#000"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">N</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#191919"/><path d="M8 8h5v5H8V8zm0 7h5v5H8v-5zm7-7h5v12h-5V8zM10 9.5v2h1v-2h-1zm0 7v2h1v-2h-1z" fill="#fff"/></svg></div>
         <div class="tool-name">Notion</div>
         <div class="tool-desc">Knowledge & databases</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#DB4437"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">G</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#191919"/><path d="M20 10c0-.8-.7-1.5-1.5-1.5H9.5C8.7 8.5 8 9.2 8 10l6 4.5L20 10z" fill="#EA4335"/><path d="M8 10v8c0 .8.7 1.5 1.5 1.5h9c.8 0 1.5-.7 1.5-1.5v-8l-6 4.5L8 10z" fill="#C5221F"/></svg></div>
         <div class="tool-name">Gmail</div>
         <div class="tool-desc">Email management</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#6D4AFF"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">P</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#6D4AFF"/><path d="M14 7a7 7 0 100 14 7 7 0 000-14zm0 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9z" fill="white" opacity="0.9"/></svg></div>
         <div class="tool-name">ProtonMail</div>
         <div class="tool-desc">Secure email</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#4285F4"/><text x="14" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="white">📅</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#4285F4"/><path d="M19 9h-1V8h-1v1h-6V8h-1v1H9c-.6 0-1 .4-1 1v9c0 .6.4 1 1 1h10c.6 0 1-.4 1-1v-9c0-.6-.4-1-1-1zm0 10H9v-6h10v6zm0-7H9v-1h10v1z" fill="white"/></svg></div>
         <div class="tool-name">Calendar</div>
         <div class="tool-desc">Schedule & events</div>
       </div>
@@ -312,24 +325,41 @@
     <div class="tools-cat-label">Development & Tools</div>
     <div class="tools-grid">
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#24292e"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">⌥</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#191919"/><path d="M14 5C9.6 5 6 8.6 6 13c0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.3c-2.2.5-2.7-1.1-2.7-1.1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-3.9 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.5 7.5 0 014 0c1.5-1 2.2-.8 2.2-.8.5 1.1.2 1.9.1 2.1.5.5.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.5.7.5 1.5v2.2c0 .2.1.5.5.4A8 8 0 0022 13c0-4.4-3.6-8-8-8z" fill="#E6EDF3"/></svg></div>
         <div class="tool-name">GitHub</div>
         <div class="tool-desc">Code, issues, PRs</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#FB542B"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">B</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#FB542B"/><path d="M14 7l-5 3.5v5.5l2 1.2v-4.7L14 11l3 1.5v4.7l2-1.2V10.5L14 7z" fill="white"/></svg></div>
         <div class="tool-name">Brave Search</div>
         <div class="tool-desc">Web search & extraction</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#EF6C00"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">☀</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#EF6C00"/><circle cx="14" cy="12" r="4" fill="none" stroke="white" stroke-width="1.5"/><path d="M14 8V6M14 18v-2M18 12h2M8 12h2" stroke="white" stroke-width="1" stroke-linecap="round"/></svg></div>
         <div class="tool-name">AccuWeather</div>
         <div class="tool-desc">Weather intelligence</div>
       </div>
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="rgba(0,212,170,0.15)"/><text x="14" y="19" text-anchor="middle" font-size="14">🪞</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="rgba(0,212,170,0.15)"/><path d="M14 8l3.5 5-3.5 5-3.5-5L14 8z" fill="#00d4aa" opacity="0.9"/><path d="M14 13l3.5 5-3.5 5-3.5-5L14 13z" fill="#00d4aa" opacity="0.35"/></svg></div>
         <div class="tool-name">Digital Mirror</div>
         <div class="tool-desc">Life direction engine</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALTH & WEARABLES -->
+  <div class="tools-category">
+    <div class="tools-cat-label">Health & Wearables</div>
+    <div class="tools-grid" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="tool">
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#191919"/><path d="M7 12l3.5 9L14 13l3.5 8L21 12h-2.5l-1 4L14 8l-3.5 8L9.5 12z" fill="#44A8B3"/></svg></div>
+        <div class="tool-name">WHOOP</div>
+        <div class="tool-desc">Recovery, strain, HRV</div>
+      </div>
+      <div class="tool">
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#191919"/><circle cx="14" cy="14" r="7" fill="none" stroke="#D4D4D4" stroke-width="2"/><circle cx="14" cy="14" r="4" fill="none" stroke="#D4D4D4" stroke-width="1.5"/></svg></div>
+        <div class="tool-name">Oura</div>
+        <div class="tool-desc">Sleep, readiness, activity</div>
       </div>
     </div>
   </div>
@@ -339,7 +369,7 @@
     <div class="tools-cat-label">Task Management</div>
     <div class="tools-grid" style="grid-template-columns: repeat(2, 1fr);">
       <div class="tool">
-        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#246FE0"/><text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="white">✓</text></svg></div>
+        <div class="tool-logo"><svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#246FE0"/><path d="M11.5 17.5l-3.5-3.5 1.4-1.4 2.1 2.1 5.1-5.1 1.4 1.4-6.5 6.5z" fill="white"/></svg></div>
         <div class="tool-name">Tasks</div>
         <div class="tool-desc">Task management & GTD</div>
       </div>
